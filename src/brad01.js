@@ -22,6 +22,23 @@ var Brad01Layer = cc.Layer.extend({
 
         mylabel.setString("我的遊戲v2");
 
+        var n8 = new cc.Sprite("res/imgs/number8.png");
+        n8.attr({
+            x: size.width / 2,
+            y: size.height / 4
+        });
+        this.addChild(n8);
+
+        var n7 = new cc.Sprite(res.number7_png);
+        n7.attr({
+            x: size.width / 2,
+            y: size.height * 3 / 4
+        });
+        this.addChild(n7);
+
+
+
+
         return true;
     },
 });

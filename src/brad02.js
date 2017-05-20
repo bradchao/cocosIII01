@@ -1,5 +1,5 @@
 var Brad02Layer = cc.Layer.extend({
-    dx : 1,
+    dx : 2,
     ctor:function () {
         this._super();
         var size = cc.winSize;
