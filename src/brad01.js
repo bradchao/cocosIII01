@@ -10,7 +10,7 @@ var Brad01Layer = cc.Layer.extend({
         colorLayer.x = size.width / 2;
         colorLayer.y = size.height / 2;
         colorLayer.ignoreAnchorPointForPosition(false);
-        this.addChild(colorLayer);
+        this.addChild(colorLayer,0);
 
         var mylabel = new cc.LabelTTF("我的遊戲","Arial",48);
         var labelSize = mylabel.getContentSize();
@@ -18,8 +18,9 @@ var Brad01Layer = cc.Layer.extend({
         mylabel.x = size.width / 2;
         mylabel.y = size.height / 2;
         mylabel.setColor(cc.color(0,0,255));
-        this.addChild(mylabel);
+        this.addChild(mylabel,0);
 
+        mylabel.setString("我的遊戲v2");
 
         return true;
     },
