@@ -6,6 +6,7 @@ var Brad02Layer = cc.Layer.extend({
     enter: null,
     mesg : null,
     input : null,
+    inputString: '',    // string var
     ctor: function () {
         this._super();
         var size = cc.winSize;
@@ -66,7 +67,7 @@ var Brad02Layer = cc.Layer.extend({
         });
         this.addChild(this.enter);
 
-        this.input = new cc.LabelTTF("123","",48);
+        this.input = new cc.LabelTTF("","",48);
         this.input.attr({
             x: cc.winSize.width / 2,
             y: cc.winSize.height *6/8
@@ -91,6 +92,36 @@ var Brad02Layer = cc.Layer.extend({
                     var x = event.getLocationX();
                     var y = event.getLocationY();
                     var point = new cc.Point(x,y);
+
+                    if (layer.inputString.length>0){
+                        // <back>
+                        var rect = new cc.Rect(layer.back.x-layer.back.width/2,
+                            layer.back.y-layer.back.height/2,
+                            layer.back.width,
+                            layer.back.height);
+                        if (cc.rectContainsPoint(rect, point)){
+                            //
+                            cc.log("back");
+                            layer.inputString =
+                                layer.inputString.substr(0,layer.inputString.length-1);
+                            layer.input.setString(layer.inputString);
+                            return;
+                        }
+                    }
+
+                    if (layer.inputString.length==3){
+                        // <enter>
+                        
+                    }else{
+                        for (i=0; i<layer.rects.length; i++){
+                            if (cc.rectContainsPoint(layer.rects[i], point)){
+                                layer.inputString += i;
+                                layer.input.setString(layer.inputString);
+                                break;
+                            }
+                        }
+                    }
+
 
 
 
