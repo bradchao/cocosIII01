@@ -8,6 +8,7 @@ var Brad02Layer = cc.Layer.extend({
     winner:null,
     loser : null,
     input : null,
+    counter : 0,
     inputString: '',    // string var
     answer : createAnswer(),
     ctor: function () {
@@ -23,6 +24,8 @@ var Brad02Layer = cc.Layer.extend({
         this.initSprit();
         this.mymouseListener(this);
         this.scheduleUpdate();
+
+        //cc.log(this.answer);
 
         return true;
     },
@@ -137,9 +140,16 @@ var Brad02Layer = cc.Layer.extend({
                         if (cc.rectContainsPoint(rect, point)) {
                             var result = checkAB(layer.answer, layer.inputString);
                             layer.mesg.setString(result);
+                            layer.counter++;
 
-                            layer.inputString = '';
-                            layer.input.setString(layer.inputString);
+                            if (result === "3A0B") {
+                                layer.winner.setVisible(true);
+                            }else if (layer.counter == 3){
+                                layer.loser.setVisible(true);
+                            }else{
+                                layer.inputString = '';
+                                layer.input.setString(layer.inputString);
+                            }
                         }
                     }else{
                         for (i=0; i<layer.rects.length; i++){
