@@ -5,6 +5,8 @@ var Brad02Layer = cc.Layer.extend({
     back: null,
     enter: null,
     mesg : null,
+    winner:null,
+    loser : null,
     input : null,
     inputString: '',    // string var
     answer : createAnswer(),
@@ -81,6 +83,22 @@ var Brad02Layer = cc.Layer.extend({
             y: cc.winSize.height *5/8
         });
         this.addChild(this.mesg);
+
+        this.winner = new cc.Sprite(res.winner_png);
+        this.winner.attr({
+            x: cc.winSize.width / 2,
+            y: cc.winSize.height / 2
+        });
+        this.addChild(this.winner);
+        this.winner.setVisible(false);
+
+        this.loser = new cc.Sprite(res.loser_png);
+        this.loser.attr({
+            x: cc.winSize.width / 2,
+            y: cc.winSize.height / 2
+        });
+        this.addChild(this.loser);
+        this.loser.setVisible(false);
 
     },
 
