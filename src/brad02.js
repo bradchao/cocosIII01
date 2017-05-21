@@ -1,6 +1,7 @@
 var Brad02Layer = cc.Layer.extend({
     dx: 2,
     nums: new Array(10),
+    rects: new Array(10),
     back: null,
     enter: null,
     mesg : null,
@@ -16,7 +17,7 @@ var Brad02Layer = cc.Layer.extend({
         this.addChild(myTitle, 0, "myTitle");
 
         this.initSprit();
-
+        this.mymouseListener(this);
         this.scheduleUpdate();
 
         return true;
@@ -41,6 +42,14 @@ var Brad02Layer = cc.Layer.extend({
                 y: cc.winSize.height * py / 8
             });
             this.addChild(this.nums[i]);
+
+            // 順便取得各Sprite的範圍區域
+            this.rects[i] = new cc.Rect(
+                this.nums[i].x-this.nums[i].width/2,
+                this.nums[i].y-this.nums[i].height/2,
+                this.nums[i].width,
+                this.nums[i].height);
+
         }
 
         this.back = new cc.Sprite(res.back_png);
@@ -73,6 +82,23 @@ var Brad02Layer = cc.Layer.extend({
 
     },
 
+    mymouseListener: function(layer){
+        if ('mouse' in cc.sys.capabilities){
+            // mouse listener
+            var mouseListener = {
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    var x = event.getLocationX();
+                    var y = event.getLocationY();
+                    var point = new cc.Point(x,y);
+
+
+
+                }
+            };
+            cc.eventManager.addListener(mouseListener,this);
+        }
+    },
 
     update: function () {
         var myTitle = this.getChildByName("myTitle");
