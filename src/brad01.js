@@ -1,21 +1,23 @@
 var Brad01Layer = cc.Layer.extend({
+    n8: null,
+    n7: null,
     ctor:function () {
         this._super();
         var size = cc.winSize;
 
-        var n8 = new cc.Sprite("res/imgs/number8.png");
-        n8.attr({
+        this.n8 = new cc.Sprite("res/imgs/number8.png");
+        this.n8.attr({
             x: size.width / 2,
             y: size.height / 4
         });
-        this.addChild(n8);
+        this.addChild(this.n8);
 
-        var n7 = new cc.Sprite(res.number7_png);
-        n7.attr({
+        this.n7 = new cc.Sprite(res.number7_png);
+        this.n7.attr({
             x: size.width / 2,
             y: size.height * 3 / 4
         });
-        this.addChild(n7);
+        this.addChild(this.n7);
 
         var n0 = new cc.Sprite(res.number_png,cc.rect(1,1,70,70));
         n0.attr({
@@ -37,6 +39,8 @@ var Brad01Layer = cc.Layer.extend({
 
         this.MyMouseListener(this);
 
+        cc.log(sayYa("Brad"));
+
         return true;
     },
 
@@ -48,13 +52,27 @@ var Brad01Layer = cc.Layer.extend({
             var mouseListener = {
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
-                    cc.log("down");
+                    var x = event.getLocationX();
+                    var y = event.getLocationY();
+                    var point = new cc.Point(x,y);
+
+                    var n8X = layer.n8.x;
+                    var n8Y = layer.n8.y;
+                    var n8W = layer.n8.width;
+                    var n8H = layer.n8.height;
+                    var rect = new cc.Rect(n8X,n8Y,n8W,n8H);
+
+                    if (cc.rectContainsPoint(rect,point)){
+                        cc.log("got it");
+                    }
+
                 }
             };
             cc.eventManager.addListener(mouseListener,this);
 
         }
     }
+
 });
 
 var Brad01Scene = cc.Scene.extend({
@@ -64,3 +82,7 @@ var Brad01Scene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
+function sayYa(who){
+    return "Ya," + who;
+}
