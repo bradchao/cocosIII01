@@ -111,10 +111,11 @@ var Brad02Layer = cc.Layer.extend({
 
                     if (layer.inputString.length==3){
                         // <enter>
-                        
+
                     }else{
                         for (i=0; i<layer.rects.length; i++){
-                            if (cc.rectContainsPoint(layer.rects[i], point)){
+                            if (cc.rectContainsPoint(layer.rects[i], point) &&
+                                layer.inputString.indexOf(''+i)==-1){
                                 layer.inputString += i;
                                 layer.input.setString(layer.inputString);
                                 break;
