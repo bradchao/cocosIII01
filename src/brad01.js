@@ -37,6 +37,14 @@ var Brad01Layer = cc.Layer.extend({
         });
         this.addChild(n1);
 
+        // 文字選單
+        cc.MenuItemFont.setFontSize(72);
+        var item1 = new cc.MenuItemFont("Start",this.item1Callback,this);
+        var item2 = new cc.MenuItemFont("Setting",this.item2Callback,this);
+        var menu = new cc.Menu(item1,item2);
+        menu.alignItemsVertically();
+        this.addChild(menu);
+
         this.MyMouseListener(this);
 
         cc.log(sayYa("Brad"));
@@ -44,6 +52,12 @@ var Brad01Layer = cc.Layer.extend({
         return true;
     },
 
+    item1Callback: function (sender) {
+        cc.director.pushScene(new cc.TransitionFadeTR(1, new Brad02Scene()));
+    },
+    item2Callback: function (sender) {
+        cc.log("setting");
+    },
 
     // 定義一個自訂方法名稱: MyMouseListener
     MyMouseListener: function(layer){

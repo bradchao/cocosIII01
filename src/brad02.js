@@ -127,6 +127,9 @@ var Brad02Layer = cc.Layer.extend({
                             layer.inputString =
                                 layer.inputString.substr(0,layer.inputString.length-1);
                             layer.input.setString(layer.inputString);
+
+                            layer.input.setColor(cc.color(255,255,255));
+
                             return;
                         }
                     }
@@ -144,14 +147,16 @@ var Brad02Layer = cc.Layer.extend({
 
                             if (result === "3A0B") {
                                 layer.winner.setVisible(true);
-                            }else if (layer.counter == 3){
+                            }else if (layer.counter == 10){
                                 layer.loser.setVisible(true);
                             }else{
+                                layer.input.setColor(cc.color(255,255,255));
                                 layer.inputString = '';
                                 layer.input.setString(layer.inputString);
                             }
                         }
                     }else{
+                        // 此處判斷是否輸入數字鍵
                         for (i=0; i<layer.rects.length; i++){
                             if (cc.rectContainsPoint(layer.rects[i], point) &&
                                 layer.inputString.indexOf(''+i)==-1){
@@ -159,6 +164,9 @@ var Brad02Layer = cc.Layer.extend({
                                 layer.input.setString(layer.inputString);
                                 break;
                             }
+                        }
+                        if (layer.inputString.length==3){
+                            layer.input.setColor(cc.color(255,0,0));
                         }
                     }
 
