@@ -7,6 +7,7 @@ var Brad02Layer = cc.Layer.extend({
     mesg : null,
     input : null,
     inputString: '',    // string var
+    answer : createAnswer(),
     ctor: function () {
         this._super();
         var size = cc.winSize;
@@ -111,7 +112,17 @@ var Brad02Layer = cc.Layer.extend({
 
                     if (layer.inputString.length==3){
                         // <enter>
+                        var rect = new cc.Rect(layer.enter.x-layer.enter.width/2,
+                            layer.enter.y-layer.enter.height/2,
+                            layer.enter.width,
+                            layer.enter.height);
+                        if (cc.rectContainsPoint(rect, point)) {
+                            var result = checkAB(layer.answer, layer.inputString);
+                            layer.mesg.setString(result);
 
+                            layer.inputString = '';
+                            layer.input.setString(layer.inputString);
+                        }
                     }else{
                         for (i=0; i<layer.rects.length; i++){
                             if (cc.rectContainsPoint(layer.rects[i], point) &&
@@ -150,3 +161,39 @@ var Brad02Scene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
+function checkAB(ans, guess) {
+    var a, b; a= b = 0;
+    for (i=0;i<ans.length; i++){
+        if (guess.charAt(i) == ans.charAt(i)){
+            a++;
+        }else if (ans.indexOf(guess.charAt(i)) !== -1){
+            b++;
+        }
+    }
+    return a + "A" + b +"B";
+}
+function createAnswer() {
+    var n = [0,1,2,3,4,5,6,7,8,9];
+    n = shuffle(n);
+    return '' + n[0] + n[1] + n[2];
+}
+function myLottery(){
+    var n = new Array(49);
+    for (i=0; i<n.length; i++){
+        n[i] = i+1;
+    }
+    n = shuffle(n);
+    return '' + n[0] + ',' +n[1] + ','+ n[2] + ','+ n[3] + ','+ n[4] + ','+ n[5];
+
+}
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = parseInt(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
