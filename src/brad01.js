@@ -57,6 +57,7 @@ var Brad01Layer = cc.Layer.extend({
     },
     item2Callback: function (sender) {
         cc.log("setting");
+        cc.director.pushScene(new SettingScene());
     },
 
     // 定義一個自訂方法名稱: MyMouseListener
